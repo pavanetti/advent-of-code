@@ -1,3 +1,5 @@
+module Ch01_1 where
+
 import System.Environment
 
 elvesCaloriesFromList :: String -> [Int]
@@ -12,10 +14,15 @@ splitOnBlankLine ss = collect ss [] []
         collect (s:ss) chunk acc = collect ss (s:chunk) acc
         collect [] chunk acc = (chunk:acc)
 
+filenameFromArgsOrDefault :: [String] -> String
+filenameFromArgsOrDefault [] = "ch01_1.txt"
+filenameFromArgsOrDefault xs = (xs !! 0)
+
+readElvesCaloriesFile :: IO String
+readElvesCaloriesFile =
+    getArgs
+    >>= (return . filenameFromArgsOrDefault)
+    >>= readFile
 
 main :: IO()
-main = getArgs >>= filenameFromArgsOrDefault >>= readFile >>= printMaximum
-    where
-        filenameFromArgsOrDefault [] = return "ch01_1.txt"
-        filenameFromArgsOrDefault xs = return (xs !! 0)
-        printMaximum = print . maximum . elvesCaloriesFromList
+main = readElvesCaloriesFile >>= print . maximum . elvesCaloriesFromList
