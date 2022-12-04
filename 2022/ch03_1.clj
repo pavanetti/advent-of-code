@@ -1,3 +1,4 @@
+(import '(java.io BufferedReader FileReader))
 (require '[clojure.set :as set])
 
 (defn repeated-items
