@@ -21,6 +21,9 @@
   [args]
   (priority-sum-of-groups-badges
     (rucksacks-from-file
-      (or (first args) "ch03_1.txt"))))
+      (file-name-from-args args
+        :default "ch03_1.txt"))))
 
-(defn -main [] (find-answer *command-line-args*))
+(defn -main
+  []
+  (println (find-answer *command-line-args*)))

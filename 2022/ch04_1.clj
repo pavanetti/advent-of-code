@@ -1,4 +1,3 @@
-(import '(java.io BufferedReader FileReader))
 (require '[clojure.string :as string])
 
 (load-file "utils.clj")
@@ -39,6 +38,10 @@
   [args]
   (contains-pairs-count
     (ranges-from-file
-      (file-name-from-args args "ch04_1.txt"))))
+      (file-name-from-args args
+        :default "ch04_1.txt"))))
 
-(defn -main [] (find-answer *command-line-args*))
+(defn -main
+  []
+  (println
+    (find-answer *command-line-args*)))

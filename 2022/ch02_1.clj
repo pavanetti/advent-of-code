@@ -1,5 +1,6 @@
-(import '(java.io BufferedReader FileReader))
-(use '[clojure.string :only (split)])
+(require '[clojure.string :as string])
+
+(load-file "utils.clj")
 
 (def opponent-play {"A" :rock, "B" :paper, "C" :scissors})
 (def your-play     {"X" :rock, "Y" :paper, "Z" :scissors})
@@ -29,25 +30,20 @@
 
 (defn game-from-line
   [line]
-    (let [[fst snd] (split line #" ")]
-      [(opponent-play fst) (your-play snd)]))
+  (let [[fst snd] (string/split line #" ")]
+    [(opponent-play fst) (your-play snd)]))
 
 (defn game-from-file
   [file-name]
-    (with-open [rdr (BufferedReader. (FileReader. file-name))]
-      (doall
-        (map game-from-line (line-seq rdr)))))
-
-(defn file-name-from-args
-  [args & {:keys [default]}]
-    (or (first args) default))
+  (process-file file-name game-from-line))
 
 (defn exec-game
   [args]
-  (println
-    (game-score
-      (game-from-file
-        (file-name-from-args args
-          :default "ch02_1.txt")))))
+  (game-score
+    (game-from-file
+      (file-name-from-args args
+        :default "ch02_1.txt"))))
 
-(defn -main [] (exec-game *command-line-args*))
+(defn -main
+  []
+  (println (exec-game *command-line-args*)))

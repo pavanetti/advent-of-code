@@ -1,7 +1,8 @@
-(use '[clojure.set :only (map-invert)])
+(require '[clojure.set :as set])
+
 (load-file "ch02_1.clj")
 
-(def lost-to (map-invert wins-from))
+(def lost-to (set/map-invert wins-from))
 (def your-play {"X" :lost, "Y" :draw, "Z" :won})
 
 (defn round-choice
@@ -15,10 +16,12 @@
 
 (defn game-from-line
   [line]
-    (let [[fst snd] (split line #" ")
+    (let [[fst snd] (string/split line #" ")
           opponent-choice (opponent-play fst)
           result (your-play snd)]
       [opponent-choice
        (round-choice opponent-choice result)] ))
 
-(defn -main [] (exec-game *command-line-args*))
+(defn -main
+  []
+  (println (exec-game *command-line-args*))

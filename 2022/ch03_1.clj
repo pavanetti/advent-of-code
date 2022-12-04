@@ -1,5 +1,6 @@
-(import '(java.io BufferedReader FileReader))
 (require '[clojure.set :as set])
+
+(load-file "utils.clj")
 
 (defn repeated-items
   [fst-seq snd-seq]
@@ -36,13 +37,15 @@
 
 (defn rucksacks-from-file
   [file-name]
-    (with-open [rdr (BufferedReader. (FileReader. file-name))]
-      (doall (line-seq rdr))))
+  (process-file file-name identity))
 
 (defn find-answer
   [args]
   (priority-sum-of-wrong-items
     (rucksacks-from-file
-      (or (first args) "ch03_1.txt"))))
+      (file-name-from-args args
+        :default "ch03_1.txt"))))
 
-(defn -main [] (find-answer *command-line-args*))
+(defn -main
+  []
+  (println (find-answer *command-line-args*)))
