@@ -42,9 +42,12 @@
   [args & {:keys [default]}]
     (or (first args) default))
 
-(println
-  (game-score
-    (game-from-file
-      (file-name-from-args
-        *command-line-args*
-        :default "ch02_1.txt"))))
+(defn exec-game
+  [args]
+  (println
+    (game-score
+      (game-from-file
+        (file-name-from-args args
+          :default "ch02_1.txt")))))
+
+(defn -main [] (exec-game *command-line-args*))
