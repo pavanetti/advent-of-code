@@ -15,11 +15,11 @@
     (range-contains? range-a range-b)
     (range-contains? range-b range-a)))
 
-(defn contains-pairs-count
-  [range-pairs]
+(defn pairs-count-by
+  [predicate range-pairs]
   (count
     (filter
-      (partial apply one-contains-other?)
+      (partial apply predicate)
       range-pairs)))
 
 (defn ranges-from-line
@@ -34,12 +34,16 @@
   [file-name]
   (process-file file-name ranges-from-line))
 
+(defn count-from-file-by
+  [predicate file-name]
+  (pairs-count-by predicate
+    (ranges-from-file file-name)))
+
 (defn find-answer
   [args]
-  (contains-pairs-count
-    (ranges-from-file
-      (file-name-from-args args
-        :default "ch04_1.txt"))))
+  (count-from-file-by one-contains-other?
+    (file-name-from-args args
+      :default "ch04_1.txt")))
 
 (defn -main
   []
