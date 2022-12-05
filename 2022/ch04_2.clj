@@ -1,4 +1,6 @@
+(ns ch04_2)
 (load-file "ch04_1.clj")
+(use '[ch04_1 :exclude (-main)])
 
 (defn overlaps?
   [[lower-a upper-a]
@@ -7,14 +9,7 @@
     (<= lower-a upper-b)
     (<= lower-b upper-a)))
 
-
-(defn find-answer
-  [args]
-  (count-from-file-by overlaps?
-    (file-name-from-args args
-      :default "ch04_1.txt")))
-
 (defn -main
-  []
+  [& args]
   (println
-    (find-answer *command-line-args*)))
+    (find-answer overlaps? args)))

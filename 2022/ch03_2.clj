@@ -1,4 +1,7 @@
+(ns ch03_2)
+(require '[clojure.set :as set])
 (load-file "ch03_1.clj")
+(use '[ch03_1 :exclude (find-answer -main)])
 
 (defn group-badge
   [group-sacks]
@@ -22,8 +25,8 @@
   (priority-sum-of-groups-badges
     (rucksacks-from-file
       (file-name-from-args args
-        :default "ch03_1.txt"))))
+        :default "input/ch03_1.txt"))))
 
 (defn -main
-  []
-  (println (find-answer *command-line-args*)))
+  [& args]
+  (println (find-answer args)))

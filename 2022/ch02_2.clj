@@ -1,6 +1,9 @@
+(ns ch02_2)
 (require '[clojure.set :as set])
+(require '[clojure.string :as string])
 
 (load-file "ch02_1.clj")
+(use '[ch02_1 :only (wins-from opponent-play exec-game)])
 
 (def lost-to (set/map-invert wins-from))
 (def your-play {"X" :lost, "Y" :draw, "Z" :won})
@@ -14,7 +17,7 @@
       (= result :won) winning-choice
       (= result :lost) loosing-choice)))
 
-(defn game-from-line
+(defn game-from-line-part2
   [line]
     (let [[fst snd] (string/split line #" ")
           opponent-choice (opponent-play fst)
@@ -23,5 +26,5 @@
        (round-choice opponent-choice result)] ))
 
 (defn -main
-  []
-  (println (exec-game *command-line-args*))
+  [& args]
+  (println (exec-game game-from-line-part2 args)))

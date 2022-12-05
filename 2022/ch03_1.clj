@@ -1,3 +1,4 @@
+(ns ch03_1)
 (require '[clojure.set :as set])
 
 (load-file "utils.clj")
@@ -44,8 +45,8 @@
   (priority-sum-of-wrong-items
     (rucksacks-from-file
       (file-name-from-args args
-        :default "ch03_1.txt"))))
+        :default "input/ch03_1.txt"))))
 
 (defn -main
-  []
-  (println (find-answer *command-line-args*)))
+  [& args]
+  (println (find-answer args)))

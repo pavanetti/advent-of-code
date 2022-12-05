@@ -1,3 +1,4 @@
+(ns ch04_1)
 (require '[clojure.string :as string])
 
 (load-file "utils.clj")
@@ -40,12 +41,12 @@
     (ranges-from-file file-name)))
 
 (defn find-answer
-  [args]
-  (count-from-file-by one-contains-other?
+  [predicate args]
+  (count-from-file-by predicate
     (file-name-from-args args
-      :default "ch04_1.txt")))
+      :default "input/ch04_1.txt")))
 
 (defn -main
-  []
+  [& args]
   (println
-    (find-answer *command-line-args*)))
+    (find-answer one-contains-other? args)))

@@ -1,3 +1,4 @@
+(ns ch02_1)
 (require '[clojure.string :as string])
 
 (load-file "utils.clj")
@@ -34,16 +35,16 @@
     [(opponent-play fst) (your-play snd)]))
 
 (defn game-from-file
-  [file-name]
-  (process-file file-name game-from-line))
+  [line-parser file-name]
+  (process-file file-name line-parser))
 
 (defn exec-game
-  [args]
+  [line-parser args]
   (game-score
-    (game-from-file
+    (game-from-file line-parser
       (file-name-from-args args
-        :default "ch02_1.txt"))))
+        :default "input/ch02_1.txt"))))
 
 (defn -main
-  []
-  (println (exec-game *command-line-args*)))
+  [& args]
+  (println (exec-game game-from-line args)))

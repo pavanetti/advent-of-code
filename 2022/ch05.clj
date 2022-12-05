@@ -1,3 +1,4 @@
+(ns ch05)
 (require '[clojure.string :as string])
 
 (load-file "ch05-input.clj")
@@ -39,3 +40,8 @@
         (machine-version-from-part challenge-part)
         initial-stacks
         procedure))))
+
+(defn -main [& args]
+  (let [part-arg (or (first args) "1")
+        part (Integer/parseInt part-arg)]
+    (println (find-answer part))))
