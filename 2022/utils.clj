@@ -11,3 +11,10 @@
 (defn file-name-from-args
   [args & {:keys [default]}]
     (or (first args) default))
+
+(defn str-transpose
+  [xs]
+  (apply vector
+    (map
+      (fn [cs] (string/trim (apply str cs)))
+      (apply map vector xs))))
