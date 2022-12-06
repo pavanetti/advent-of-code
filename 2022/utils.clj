@@ -1,4 +1,5 @@
 (import '(java.io BufferedReader FileReader))
+(require '[clojure.string :as string])
 
 (defn process-file
   [file-name func]
